@@ -1,12 +1,16 @@
 import os
+from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from google import genai
 
+load_dotenv()
+
+api_key = os.getenv("GEMINI_API_KEY")
+
 app = FastAPI()
 
-# Initialize the official Google GenAI client
-client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
+client = genai.Client(api_key=api_key)
 
 class PromptRequest(BaseModel):
     prompt: str
